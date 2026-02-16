@@ -1,0 +1,231 @@
+CREATE DATABASE gimnasio_inteligente;
+
+USE gimnasio_inteligente;
+
+-- =========================================
+-- 1️⃣ TABLA USUARIO
+-- =========================================
+CREATE TABLE usuario (
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    edad INT,
+    peso DECIMAL(5,2),
+    estatura DECIMAL(4,2),
+    fecha_registro DATE
+);
+
+-- =========================================
+-- 2️⃣ TABLA ENTRENADOR
+-- =========================================
+CREATE TABLE entrenador (
+    id_entrenador INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    especialidad VARCHAR(100),
+    email VARCHAR(100) UNIQUE
+);
+
+-- =========================================
+-- 3️⃣ TABLA RUTINA
+-- Relación 1:N con entrenador
+-- =========================================
+CREATE TABLE rutina (
+    id_rutina INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    nivel VARCHAR(50),
+    id_entrenador INT,
+    FOREIGN KEY (id_entrenador)
+        REFERENCES entrenador(id_entrenador)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
+);
+
+-- =========================================
+-- 4️⃣ TABLA EJERCICIO
+-- =========================================
+CREATE TABLE ejercicio (
+    id_ejercicio INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    grupo_muscular VARCHAR(100),
+    tipo VARCHAR(50),
+    imagen_url VARCHAR(255)
+);
+
+
+-- =========================================
+-- 5️⃣ TABLA RUTINA_EJERCICIO (N:M)
+-- =========================================
+CREATE TABLE rutina_ejercicio (
+    id_rutina INT,
+    id_ejercicio INT,
+    series INT,
+    repeticiones INT,
+    descanso_seg INT,
+    PRIMARY KEY (id_rutina, id_ejercicio),
+    FOREIGN KEY (id_rutina)
+        REFERENCES rutina(id_rutina)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_ejercicio)
+        REFERENCES ejercicio(id_ejercicio)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- =========================================
+-- 6️⃣ TABLA USUARIO_RUTINA (N:M)
+-- =========================================
+CREATE TABLE usuario_rutina (
+    id_usuario INT,
+    id_rutina INT,
+    fecha_inicio DATE,
+    estado VARCHAR(50),
+    PRIMARY KEY (id_usuario, id_rutina),
+    FOREIGN KEY (id_usuario)
+        REFERENCES usuario(id_usuario)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_rutina)
+        REFERENCES rutina(id_rutina)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- =========================================
+-- 7️⃣ TABLA PROGRESO (1:N)
+-- =========================================
+CREATE TABLE progreso (
+    id_progreso INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT,
+    peso_actual DECIMAL(5,2),
+    porcentaje_grasa DECIMAL(5,2),
+    masa_muscular DECIMAL(5,2),
+    fecha_registro DATE,
+    FOREIGN KEY (id_usuario)
+        REFERENCES usuario(id_usuario)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+INSERT INTO entrenador (nombre, especialidad, email) VALUES
+('Carlos Méndez', 'Hipertrofia', 'carlos1@gym.com'),
+('Laura Gómez', 'Pérdida de grasa', 'laura2@gym.com'),
+('Andrés Ruiz', 'Fuerza', 'andres3@gym.com'),
+('María Torres', 'Rehabilitación', 'maria4@gym.com'),
+('Juan López', 'Funcional', 'juan5@gym.com'),
+('Camila Rojas', 'Crossfit', 'camila6@gym.com'),
+('Pedro Castillo', 'Resistencia', 'pedro7@gym.com'),
+('Sofía Herrera', 'Pilates', 'sofia8@gym.com'),
+('David Morales', 'Powerlifting', 'david9@gym.com'),
+('Natalia Castro', 'Cardio', 'natalia10@gym.com'),
+('Miguel Díaz', 'Musculación', 'miguel11@gym.com'),
+('Valentina Ortiz', 'Fuerza femenina', 'valentina12@gym.com'),
+('Sebastián Vega', 'HIIT', 'sebastian13@gym.com'),
+('Daniela Pérez', 'Tonificación', 'daniela14@gym.com'),
+('Alejandro Silva', 'Atletas', 'alejandro15@gym.com');
+
+INSERT INTO usuario (nombre, email, edad, peso, estatura, fecha_registro) VALUES
+('Luis Ramírez','luis1@mail.com',25,70.5,1.75,'2024-01-10'),
+('Ana Martínez','ana2@mail.com',28,60.2,1.65,'2024-02-05'),
+('Diego Sánchez','diego3@mail.com',22,80.3,1.80,'2024-03-12'),
+('Paula Jiménez','paula4@mail.com',30,65.0,1.68,'2024-04-01'),
+('Jorge Medina','jorge5@mail.com',27,78.4,1.82,'2024-05-03'),
+('Valeria León','valeria6@mail.com',24,55.6,1.60,'2024-06-10'),
+('Mateo Cruz','mateo7@mail.com',26,85.2,1.85,'2024-07-15'),
+('Lucía Navarro','lucia8@mail.com',29,62.1,1.70,'2024-08-20'),
+('Tomás Herrera','tomas9@mail.com',23,75.0,1.78,'2024-09-10'),
+('Isabella Reyes','isa10@mail.com',31,58.4,1.63,'2024-10-05'),
+('Samuel Ortiz','samuel11@mail.com',21,90.0,1.88,'2024-11-01'),
+('Gabriela Mena','gaby12@mail.com',26,64.3,1.69,'2024-12-12'),
+('Emilio Vargas','emilio13@mail.com',32,82.7,1.83,'2025-01-01'),
+('Mariana Soto','mariana14@mail.com',27,59.8,1.66,'2025-01-15'),
+('Kevin Pardo','kevin15@mail.com',24,77.3,1.79,'2025-02-01');
+
+INSERT INTO rutina (nombre, descripcion, nivel, id_entrenador) VALUES
+('Rutina Principiante','Rutina básica','Principiante',1),
+('Rutina Intermedia','Rutina moderada','Intermedio',2),
+('Rutina Avanzada','Alta intensidad','Avanzado',3),
+('Cardio Fit','Cardio intensivo','Intermedio',4),
+('Hipertrofia Pro','Ganar músculo','Avanzado',5),
+('Funcional 360','Entrenamiento funcional','Intermedio',6),
+('Cross Training','Mixto','Avanzado',7),
+('Full Body','Cuerpo completo','Principiante',8),
+('Power Build','Fuerza máxima','Avanzado',9),
+('HIIT Pro','Intervalos','Intermedio',10),
+('Glúteos Max','Enfoque glúteos','Intermedio',11),
+('Pierna Total','Piernas','Intermedio',12),
+('Espalda Fuerte','Espalda','Avanzado',13),
+('Pecho Power','Pecho','Intermedio',14),
+('Atleta Elite','Preparación atleta','Avanzado',15);
+
+INSERT INTO ejercicio (nombre, descripcion, grupo_muscular, tipo, imagen_url) VALUES
+('Sentadilla','Ejercicio pierna','Piernas','Fuerza','https://gym.com/img/sentadilla.jpg'),
+('Press banca','Pecho','Pecho','Fuerza','https://gym.com/img/pressbanca.jpg'),
+('Peso muerto','Espalda baja','Espalda','Fuerza','https://gym.com/img/pesomuerto.jpg'),
+('Dominadas','Espalda','Espalda','Fuerza','https://gym.com/img/dominadas.jpg'),
+('Flexiones','Pecho','Pecho','Resistencia','https://gym.com/img/flexiones.jpg'),
+('Zancadas','Pierna','Piernas','Fuerza','https://gym.com/img/zancadas.jpg'),
+('Curl bíceps','Bíceps','Brazos','Fuerza','https://gym.com/img/curlbiceps.jpg'),
+('Extensión tríceps','Tríceps','Brazos','Fuerza','https://gym.com/img/triceps.jpg'),
+('Abdominales','Core','Abdomen','Resistencia','https://gym.com/img/abs.jpg'),
+('Plancha','Core','Abdomen','Resistencia','https://gym.com/img/plancha.jpg'),
+('Prensa','Pierna','Piernas','Fuerza','https://gym.com/img/prensa.jpg'),
+('Remo','Espalda','Espalda','Fuerza','https://gym.com/img/remo.jpg'),
+('Elevaciones laterales','Hombros','Hombros','Fuerza','https://gym.com/img/hombros.jpg'),
+('Burpees','Cardio','Full body','HIIT','https://gym.com/img/burpees.jpg'),
+('Mountain climbers','Cardio','Full body','HIIT','https://gym.com/img/mountain.jpg');
+
+INSERT INTO rutina_ejercicio VALUES
+(1,1,3,12,60),
+(1,2,3,10,60),
+(2,3,4,8,90),
+(2,4,3,10,60),
+(3,5,4,15,45),
+(4,6,3,12,60),
+(5,7,4,10,60),
+(6,8,3,12,60),
+(7,9,3,20,30),
+(8,10,3,60,30),
+(9,11,4,10,90),
+(10,12,3,12,60),
+(11,13,3,12,60),
+(12,14,4,15,30),
+(13,15,4,20,30);
+
+INSERT INTO usuario_rutina VALUES
+(1,1,'2024-01-15','Activa'),
+(2,2,'2024-02-10','Activa'),
+(3,3,'2024-03-15','Finalizada'),
+(4,4,'2024-04-10','Activa'),
+(5,5,'2024-05-05','Activa'),
+(6,6,'2024-06-20','Activa'),
+(7,7,'2024-07-25','Finalizada'),
+(8,8,'2024-08-30','Activa'),
+(9,9,'2024-09-15','Activa'),
+(10,10,'2024-10-10','Activa'),
+(11,11,'2024-11-05','Activa'),
+(12,12,'2024-12-20','Finalizada'),
+(13,13,'2025-01-05','Activa'),
+(14,14,'2025-01-20','Activa'),
+(15,15,'2025-02-10','Activa');
+
+INSERT INTO progreso (id_usuario, peso_actual, porcentaje_grasa, masa_muscular, fecha_registro) VALUES
+(1,69.5,18.2,30.1,'2024-02-10'),
+(2,59.8,22.0,25.3,'2024-03-10'),
+(3,78.0,20.5,35.0,'2024-04-10'),
+(4,64.0,19.0,28.0,'2024-05-10'),
+(5,77.0,17.5,34.5,'2024-06-10'),
+(6,54.8,23.0,24.0,'2024-07-10'),
+(7,83.5,19.5,37.2,'2024-08-10'),
+(8,61.5,21.2,26.8,'2024-09-10'),
+(9,73.0,18.8,32.4,'2024-10-10'),
+(10,57.5,22.5,25.0,'2024-11-10'),
+(11,88.0,16.5,40.0,'2024-12-10'),
+(12,63.0,20.0,27.5,'2025-01-10'),
+(13,80.0,18.0,36.5,'2025-02-10'),
+(14,58.0,21.0,26.0,'2025-02-15'),
+(15,75.0,19.0,33.0,'2025-02-20');
+
+

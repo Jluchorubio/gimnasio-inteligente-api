@@ -1,0 +1,28 @@
+{
+  "name": "gimnasio-inteligente-api",
+  "version": "1.0.0",
+  "description": "API REST para sistema de gestión Gimnasio Inteligente",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mysql",
+    "api",
+    "gimnasio"
+  ],
+  "author": "Jose Luis Rubio",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "mysql2": "^3.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "type": "commonjs"
+}
