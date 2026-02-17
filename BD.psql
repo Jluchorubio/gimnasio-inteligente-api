@@ -1,12 +1,13 @@
 CREATE DATABASE gimnasio_inteligente;
 
-USE gimnasio_inteligente;
+-- Luego conéctate a la base:
+-- \c gimnasio_inteligente
 
 -- =========================================
 -- 1️⃣ TABLA USUARIO
 -- =========================================
 CREATE TABLE usuario (
-    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     edad INT,
@@ -19,7 +20,7 @@ CREATE TABLE usuario (
 -- 2️⃣ TABLA ENTRENADOR
 -- =========================================
 CREATE TABLE entrenador (
-    id_entrenador INT PRIMARY KEY AUTO_INCREMENT,
+    id_entrenador SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     especialidad VARCHAR(100),
     email VARCHAR(100) UNIQUE
@@ -27,10 +28,9 @@ CREATE TABLE entrenador (
 
 -- =========================================
 -- 3️⃣ TABLA RUTINA
--- Relación 1:N con entrenador
 -- =========================================
 CREATE TABLE rutina (
-    id_rutina INT PRIMARY KEY AUTO_INCREMENT,
+    id_rutina SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
     nivel VARCHAR(50),
@@ -38,21 +38,19 @@ CREATE TABLE rutina (
     FOREIGN KEY (id_entrenador)
         REFERENCES entrenador(id_entrenador)
         ON DELETE SET NULL
-        ON UPDATE CASCADE
 );
 
 -- =========================================
 -- 4️⃣ TABLA EJERCICIO
 -- =========================================
 CREATE TABLE ejercicio (
-    id_ejercicio INT PRIMARY KEY AUTO_INCREMENT,
+    id_ejercicio SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
     grupo_muscular VARCHAR(100),
     tipo VARCHAR(50),
     imagen_url VARCHAR(255)
 );
-
 
 -- =========================================
 -- 5️⃣ TABLA RUTINA_EJERCICIO (N:M)
@@ -66,12 +64,10 @@ CREATE TABLE rutina_ejercicio (
     PRIMARY KEY (id_rutina, id_ejercicio),
     FOREIGN KEY (id_rutina)
         REFERENCES rutina(id_rutina)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
+        ON DELETE CASCADE,
     FOREIGN KEY (id_ejercicio)
         REFERENCES ejercicio(id_ejercicio)
         ON DELETE CASCADE
-        ON UPDATE CASCADE
 );
 
 -- =========================================
@@ -85,19 +81,17 @@ CREATE TABLE usuario_rutina (
     PRIMARY KEY (id_usuario, id_rutina),
     FOREIGN KEY (id_usuario)
         REFERENCES usuario(id_usuario)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
+        ON DELETE CASCADE,
     FOREIGN KEY (id_rutina)
         REFERENCES rutina(id_rutina)
         ON DELETE CASCADE
-        ON UPDATE CASCADE
 );
 
 -- =========================================
 -- 7️⃣ TABLA PROGRESO (1:N)
 -- =========================================
 CREATE TABLE progreso (
-    id_progreso INT PRIMARY KEY AUTO_INCREMENT,
+    id_progreso SERIAL PRIMARY KEY,
     id_usuario INT,
     peso_actual DECIMAL(5,2),
     porcentaje_grasa DECIMAL(5,2),
@@ -106,8 +100,11 @@ CREATE TABLE progreso (
     FOREIGN KEY (id_usuario)
         REFERENCES usuario(id_usuario)
         ON DELETE CASCADE
-        ON UPDATE CASCADE
 );
+
+-- =========================================
+-- INSERTS (SIN MODIFICACIÓN)
+-- =========================================
 
 INSERT INTO entrenador (nombre, especialidad, email) VALUES
 ('Carlos Méndez', 'Hipertrofia', 'carlos1@gym.com'),
@@ -142,6 +139,7 @@ INSERT INTO usuario (nombre, email, edad, peso, estatura, fecha_registro) VALUES
 ('Emilio Vargas','emilio13@mail.com',32,82.7,1.83,'2025-01-01'),
 ('Mariana Soto','mariana14@mail.com',27,59.8,1.66,'2025-01-15'),
 ('Kevin Pardo','kevin15@mail.com',24,77.3,1.79,'2025-02-01');
+
 
 INSERT INTO rutina (nombre, descripcion, nivel, id_entrenador) VALUES
 ('Rutina Principiante','Rutina básica','Principiante',1),

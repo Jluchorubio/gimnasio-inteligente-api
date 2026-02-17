@@ -1,15 +1,15 @@
-const db = require('../config/db');
+﻿const db = require('../config/db');
 
 // Obtener todos los usuarios
 exports.getAll = async () => {
-  const [rows] = await db.query('SELECT * FROM usuario');
+  const { rows } = await db.query('SELECT * FROM usuario');
   return rows;
 };
 
 // Obtener usuario por ID
 exports.getById = async (id) => {
-  const [rows] = await db.query(
-    'SELECT * FROM usuario WHERE id_usuario = ?',
+  const { rows } = await db.query(
+    'SELECT * FROM usuario WHERE id_usuario = $1',
     [id]
   );
   return rows[0];
@@ -19,14 +19,15 @@ exports.getById = async (id) => {
 exports.create = async (data) => {
   const { nombre, email, edad, peso, estatura, fecha_registro } = data;
 
-  const [result] = await db.query(
-    `INSERT INTO usuario 
+  const { rows } = await db.query(
+    `INSERT INTO usuario
     (nombre, email, edad, peso, estatura, fecha_registro)
-    VALUES (?, ?, ?, ?, ?, ?)`,
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING id_usuario`,
     [nombre, email, edad, peso, estatura, fecha_registro]
   );
 
-  return result.insertId;
+  return rows[0].id_usuario;
 };
 
 // Actualizar usuario
@@ -35,8 +36,8 @@ exports.update = async (id, data) => {
 
   await db.query(
     `UPDATE usuario
-     SET nombre = ?, email = ?, edad = ?, peso = ?, estatura = ?
-     WHERE id_usuario = ?`,
+     SET nombre = $1, email = $2, edad = $3, peso = $4, estatura = $5
+     WHERE id_usuario = $6`,
     [nombre, email, edad, peso, estatura, id]
   );
 };
@@ -44,7 +45,7 @@ exports.update = async (id, data) => {
 // Eliminar usuario
 exports.delete = async (id) => {
   await db.query(
-    'DELETE FROM usuario WHERE id_usuario = ?',
+    'DELETE FROM usuario WHERE id_usuario = $1',
     [id]
   );
 };

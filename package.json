@@ -1,7 +1,7 @@
-{
+﻿{
   "name": "gimnasio-inteligente-api",
   "version": "1.0.0",
-  "description": "API REST para sistema de gestión Gimnasio Inteligente",
+  "description": "API REST para sistema de gestion Gimnasio Inteligente",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -10,7 +10,7 @@
   "keywords": [
     "node",
     "express",
-    "mysql",
+    "postgresql",
     "api",
     "gimnasio"
   ],
@@ -19,7 +19,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
-    "mysql2": "^3.9.7"
+    "pg": "^8.12.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

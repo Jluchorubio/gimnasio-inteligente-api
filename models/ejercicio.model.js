@@ -1,10 +1,10 @@
-const db = require('../config/db');
+﻿const db = require('../config/db');
 
 /**
  * Obtener todos los ejercicios
  */
 exports.getAll = async () => {
-    const [rows] = await db.query('SELECT * FROM ejercicio');
+    const { rows } = await db.query('SELECT * FROM ejercicio');
     return rows;
 };
 
@@ -12,8 +12,8 @@ exports.getAll = async () => {
  * Obtener ejercicio por ID
  */
 exports.getById = async (id) => {
-    const [rows] = await db.query(
-        'SELECT * FROM ejercicio WHERE id_ejercicio = ?',
+    const { rows } = await db.query(
+        'SELECT * FROM ejercicio WHERE id_ejercicio = $1',
         [id]
     );
     return rows[0];
@@ -25,14 +25,15 @@ exports.getById = async (id) => {
 exports.create = async (data) => {
     const { nombre, descripcion, grupo_muscular, tipo, imagen_url = null } = data;
 
-    const [result] = await db.query(
-        `INSERT INTO ejercicio 
+    const { rows } = await db.query(
+        `INSERT INTO ejercicio
         (nombre, descripcion, grupo_muscular, tipo, imagen_url)
-        VALUES (?, ?, ?, ?, ?)`,
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING id_ejercicio`,
         [nombre, descripcion, grupo_muscular, tipo, imagen_url]
     );
 
-    return result.insertId;
+    return rows[0].id_ejercicio;
 };
 
 /**
@@ -49,12 +50,12 @@ exports.update = async (id, data) => {
 
     await db.query(
         `UPDATE ejercicio
-         SET nombre = ?, 
-             descripcion = ?, 
-             grupo_muscular = ?, 
-             tipo = ?, 
-             imagen_url = COALESCE(?, imagen_url)
-         WHERE id_ejercicio = ?`,
+         SET nombre = $1,
+             descripcion = $2,
+             grupo_muscular = $3,
+             tipo = $4,
+             imagen_url = COALESCE($5, imagen_url)
+         WHERE id_ejercicio = $6`,
         [nombre, descripcion, grupo_muscular, tipo, imagen_url, id]
     );
 };
@@ -64,7 +65,7 @@ exports.update = async (id, data) => {
  */
 exports.delete = async (id) => {
     await db.query(
-        'DELETE FROM ejercicio WHERE id_ejercicio = ?',
+        'DELETE FROM ejercicio WHERE id_ejercicio = $1',
         [id]
     );
 };

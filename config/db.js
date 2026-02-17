@@ -1,37 +1,26 @@
-/**
- * Archivo: config/db.js
- * -----------------------------------------
- * Configura y exporta la conexión a MySQL
- * utilizando mysql2 con soporte para Promesas.
+﻿/**
+ * config/db.js
+ * -----------------------------
+ * PostgreSQL connection using pg Pool.
  */
-
-const mysql = require('mysql2/promise');
+const { Pool } = require('pg');
 require('dotenv').config();
 
-/**
- * Pool de conexiones.
- * Permite manejar múltiples conexiones de forma eficiente.
- */
-const pool = mysql.createPool({
+const pool = new Pool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+  port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 5432
 });
 
-/**
- * Verifica conexión inicial
- */
 async function testConnection() {
   try {
-    const connection = await pool.getConnection();
-    console.log('✅ Conectado a MySQL correctamente');
-    connection.release();
+    const client = await pool.connect();
+    console.log('✅ Conectado a PostgreSQL correctamente');
+    client.release();
   } catch (error) {
-    console.error('❌ Error conectando a MySQL:', error.message);
+    console.error('❌ Error conectando a PostgreSQL:', error.message);
   }
 }
 
