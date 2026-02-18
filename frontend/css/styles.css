@@ -1,0 +1,155 @@
+/* ===== VARIABLES ===== */
+:root {
+    --orange-accent: #f97316;
+    --orange-glow: rgba(249, 115, 22, 0.5);
+    --dark-bg: #0a0a0a;
+    --transition-speed: 300ms;
+}
+
+/* ===== ANIMACIONES GLOBALES ===== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.fade-in-delay {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease 0.3s forwards;
+}
+
+.fade-in-delay-2 {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease 0.6s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== NAVBAR SCROLL EFFECT ===== */
+#main-header.scrolled {
+    background-color: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== BOTONES PERSONALIZADOS ===== */
+.btn-primary {
+    display: inline-block;
+    background-color: var(--orange-accent);
+    color: black;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px; /* full rounded */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all var(--transition-speed) ease;
+    border: 2px solid transparent;
+}
+
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--orange-accent);
+    border-color: var(--orange-accent);
+    box-shadow: 0 0 20px var(--orange-glow);
+    transform: scale(1.05);
+}
+
+.btn-outline {
+    display: inline-block;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all var(--transition-speed) ease;
+    border: 2px solid white;
+}
+
+.btn-outline:hover {
+    background-color: white;
+    color: black;
+    border-color: white;
+    transform: scale(1.05);
+}
+
+/* ===== CORTES DIAGONALES ===== */
+.clip-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+}
+
+.clip-diagonal-reverse {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
+}
+
+/* ===== TARJETAS CON EFECTO HOVER ===== */
+.service-card {
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.service-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 30px -10px rgba(249, 115, 22, 0.3);
+}
+
+/* Estilo para tarjetas de entrenador (se usarán en la sección dinámica) */
+.trainer-card {
+    background-color: #1a1a1a;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: all var(--transition-speed) ease;
+    border-bottom: 3px solid transparent;
+}
+
+.trainer-card:hover {
+    transform: scale(1.05) translateY(-10px);
+    box-shadow: 0 20px 30px -10px var(--orange-glow);
+    border-bottom-color: var(--orange-accent);
+}
+
+.trainer-card img {
+    transition: transform var(--transition-speed) ease;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.trainer-card:hover img {
+    transform: scale(1.1);
+}
+
+.trainer-card .content {
+    padding: 1.5rem;
+}
+
+.trainer-card h3 {
+    color: var(--orange-accent);
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.trainer-card p {
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+/* ===== ANIMACIONES AL HACER SCROLL (REVEAL) ===== */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}

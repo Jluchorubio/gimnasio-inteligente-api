@@ -3,3 +3,4 @@
 export async function getEjercicios() {
   return apiRequest('/api/ejercicios');
 }
+

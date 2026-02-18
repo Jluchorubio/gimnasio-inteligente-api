@@ -4,45 +4,86 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gimnasio Inteligente | Progreso</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom CSS for advanced animations -->
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
-<body>
-  <header>
-    <nav aria-label="Navegacion principal">
-      <a href="index.html">Inicio</a>
-      <a href="usuarios.html">Usuarios</a>
-      <a href="entrenadores.html">Entrenadores</a>
-      <a href="rutinas.html">Rutinas</a>
-      <a href="ejercicios.html">Ejercicios</a>
-      <a href="progreso.html">Progreso</a>
+<body class="bg-dark-bg text-white font-sans antialiased">
+
+  <!-- Navbar fija con efecto de cambio en scroll -->
+  <header id="main-header" class="fixed w-full z-50 transition-all duration-300 bg-transparent">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Navegacion principal">
+      <a href="index.html" class="text-2xl font-bold tracking-tighter text-white"><span class="text-orange-accent">//</span> GYM INT</a>
+      <div class="space-x-8 text-sm font-medium uppercase tracking-wider">
+        <a href="index.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Inicio</a>
+        <a href="usuarios.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Usuarios</a>
+        <a href="entrenadores.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Entrenadores</a>
+        <a href="rutinas.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Rutinas</a>
+        <a href="ejercicios.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Ejercicios</a>
+        <a href="progreso.html" class="nav-link text-orange-accent font-bold transition">Progreso</a>
+      </div>
     </nav>
   </header>
 
-  <main>
-    <section aria-labelledby="progreso-title">
-      <h1 id="progreso-title">Progreso Mensual por Usuario</h1>
-      <p>Consulta dinamica consumiendo <code>GET /api/usuarios/:id/progreso-mensual</code>.</p>
-      <label for="progreso-usuario-select">Selecciona un usuario</label>
-      <select id="progreso-usuario-select">
-        <option value="">-- Elige un usuario --</option>
-      </select>
-      <div id="progreso-feedback" aria-live="polite"></div>
-      <table>
-        <caption>Historial de progreso mensual</caption>
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Peso Actual</th>
-            <th>% Grasa</th>
-            <th>Masa Muscular</th>
-          </tr>
-        </thead>
-        <tbody id="progreso-table-body"></tbody>
-      </table>
+  <main class="pt-24">
+    <!-- Hero pequeño de página -->
+    <section class="relative py-16 bg-zinc-900 clip-diagonal mb-12">
+      <div class="container mx-auto px-6 text-center">
+        <h1 id="progreso-title" class="text-5xl md:text-6xl font-black uppercase tracking-tighter fade-in">
+          <span class="text-orange-accent">//</span> PROGRESO
+        </h1>
+        <p class="text-xl text-gray-300 mt-4 fade-in-delay max-w-2xl mx-auto">
+          Visualiza la evolución de cada usuario. Datos precisos para resultados reales.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sección de consulta de progreso -->
+    <section aria-labelledby="progreso-title" class="py-12 bg-black">
+      <div class="container mx-auto px-6 max-w-5xl">
+        <!-- Selector de usuario -->
+        <div class="bg-zinc-900 p-8 rounded-lg border-l-4 border-orange-accent mb-10 reveal">
+          <label for="progreso-usuario-select" class="block text-lg font-medium text-gray-300 mb-3">
+            Selecciona un usuario para ver su progreso mensual:
+          </label>
+          <select id="progreso-usuario-select" class="w-full md:w-96 px-4 py-3 bg-zinc-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-orange-accent focus:ring-1 focus:ring-orange-accent transition">
+            <option value="" class="text-gray-400">-- Elige un usuario --</option>
+          </select>
+        </div>
+
+        <!-- Feedback -->
+        <div id="progreso-feedback" class="text-center mb-8 text-gray-400" aria-live="polite"></div>
+
+        <!-- Tabla de progreso -->
+        <div class="overflow-x-auto bg-zinc-900 rounded-lg p-6 reveal">
+          <table class="w-full border-collapse">
+            <caption class="text-left text-xl font-bold text-orange-accent mb-4">
+              Historial de progreso mensual
+            </caption>
+            <thead>
+              <tr class="border-b border-gray-700">
+                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">Fecha</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">Peso Actual</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">% Grasa</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">Masa Muscular</th>
+              </tr>
+            </thead>
+            <tbody id="progreso-table-body" class="divide-y divide-gray-800">
+              <!-- Los datos se inyectarán aquí desde JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; <span id="current-year"></span> Gimnasio Inteligente</p>
+  <!-- Footer oscuro elegante -->
+  <footer class="bg-black/90 border-t border-zinc-800 py-12 mt-12">
+    <div class="container mx-auto px-6 text-center text-gray-500">
+      <p class="mb-2">&copy; <span id="current-year"></span> Gimnasio Inteligente. Todos los derechos reservados.</p>
+      <p class="text-sm">Hecho con 💪 y datos en tiempo real.</p>
+    </div>
   </footer>
 
   <script type="module" src="./js/pages/progreso.js"></script>

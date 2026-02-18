@@ -4,30 +4,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gimnasio Inteligente | Entrenadores</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom CSS for advanced animations -->
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
-<body>
-  <header>
-    <nav aria-label="Navegacion principal">
-      <a href="index.html">Inicio</a>
-      <a href="usuarios.html">Usuarios</a>
-      <a href="entrenadores.html">Entrenadores</a>
-      <a href="rutinas.html">Rutinas</a>
-      <a href="ejercicios.html">Ejercicios</a>
-      <a href="progreso.html">Progreso</a>
+<body class="bg-dark-bg text-white font-sans antialiased">
+
+  <!-- Navbar fija con efecto de cambio en scroll -->
+  <header id="main-header" class="fixed w-full z-50 transition-all duration-300 bg-transparent">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Navegacion principal">
+      <a href="index.html" class="text-2xl font-bold tracking-tighter text-white"><span class="text-orange-accent">//</span> GYM INT</a>
+      <div class="space-x-8 text-sm font-medium uppercase tracking-wider">
+        <a href="index.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Inicio</a>
+        <a href="usuarios.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Usuarios</a>
+        <a href="entrenadores.html" class="nav-link text-orange-accent font-bold transition">Entrenadores</a>
+        <a href="rutinas.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Rutinas</a>
+        <a href="ejercicios.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Ejercicios</a>
+        <a href="progreso.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Progreso</a>
+      </div>
     </nav>
   </header>
 
-  <main>
-    <section aria-labelledby="entrenadores-title">
-      <h1 id="entrenadores-title">Entrenadores</h1>
-      <p>Tarjetas dinamicas consumiendo <code>GET /api/entrenadores</code>.</p>
-      <div id="entrenadores-feedback" aria-live="polite"></div>
-      <div id="entrenadores-cards"></div>
+  <main class="pt-24">
+    <!-- Hero pequeño de página -->
+    <section class="relative py-16 bg-zinc-900 clip-diagonal mb-12">
+      <div class="container mx-auto px-6 text-center">
+        <h1 id="entrenadores-title" class="text-5xl md:text-6xl font-black uppercase tracking-tighter fade-in">
+          <span class="text-orange-accent">//</span> ENTRENADORES
+        </h1>
+        <p class="text-xl text-gray-300 mt-4 fade-in-delay max-w-2xl mx-auto">
+          Expertos en transformación física. Conoce a nuestro equipo de alto rendimiento.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sección de tarjetas de entrenadores -->
+    <section aria-labelledby="entrenadores-title" class="py-12 bg-black">
+      <div class="container mx-auto px-6">
+        <!-- Feedback y contenedor de tarjetas -->
+        <div id="entrenadores-feedback" class="text-center mb-8 text-gray-400" aria-live="polite"></div>
+        <div id="entrenadores-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <!-- Las tarjetas se inyectarán aquí desde JavaScript -->
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; <span id="current-year"></span> Gimnasio Inteligente</p>
+  <!-- Footer oscuro elegante -->
+  <footer class="bg-black/90 border-t border-zinc-800 py-12 mt-12">
+    <div class="container mx-auto px-6 text-center text-gray-500">
+      <p class="mb-2">&copy; <span id="current-year"></span> Gimnasio Inteligente. Todos los derechos reservados.</p>
+      <p class="text-sm">Hecho con 💪 y datos en tiempo real.</p>
+    </div>
   </footer>
 
   <script type="module" src="./js/pages/entrenadores.js"></script>

@@ -3,65 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gimnasio Inteligente | Landing</title>
+  <title>Gimnasio Inteligente | Donde los datos transforman tu cuerpo</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom CSS for advanced animations -->
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
-<body>
-  <header>
-    <nav aria-label="Navegacion principal">
-      <a href="index.html">Inicio</a>
-      <a href="usuarios.html">Usuarios</a>
-      <a href="entrenadores.html">Entrenadores</a>
-      <a href="rutinas.html">Rutinas</a>
-      <a href="ejercicios.html">Ejercicios</a>
-      <a href="progreso.html">Progreso</a>
+<body class="bg-dark-bg text-white font-sans antialiased">
+
+  <!-- Navbar fija con efecto de cambio en scroll -->
+  <header id="main-header" class="fixed w-full z-50 transition-all duration-300 bg-transparent">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Navegacion principal">
+      <a href="index.html" class="text-2xl font-bold tracking-tighter text-white"><span class="text-orange-accent">//</span> GYM INT</a>
+      <div class="space-x-8 text-sm font-medium uppercase tracking-wider">
+        <a href="index.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Inicio</a>
+        <a href="usuarios.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Usuarios</a>
+        <a href="entrenadores.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Entrenadores</a>
+        <a href="rutinas.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Rutinas</a>
+        <a href="ejercicios.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Ejercicios</a>
+        <a href="progreso.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Progreso</a>
+      </div>
     </nav>
   </header>
 
   <main>
-    <section id="hero" aria-labelledby="hero-title">
-      <h1 id="hero-title">Gimnasio Inteligente</h1>
-      <p>Entrenamiento personalizado basado en datos reales de progreso.</p>
-      <div>
-        <a href="usuarios.html">Ver Usuarios</a>
-        <a href="rutinas.html">Explorar Rutinas</a>
+    <!-- Hero Section con corte diagonal -->
+    <section id="hero" class="relative h-screen flex items-center clip-diagonal" aria-labelledby="hero-title">
+      <!-- Imagen de fondo con overlay oscuro -->
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
+        <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-orange-accent/30"></div>
+      </div>
+      <!-- Contenido del Hero -->
+      <div class="container mx-auto px-6 relative z-10 text-center md:text-left">
+        <h1 id="hero-title" class="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-tight fade-in">
+          <span class="block">Gimnasio</span>
+          <span class="block text-orange-accent">Inteligente</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 mt-4 max-w-2xl md:mx-0 mx-auto fade-in-delay">
+          Entrenamiento personalizado basado en datos reales de progreso. La ciencia al servicio de tu fuerza.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start fade-in-delay-2">
+          <a href="usuarios.html" class="btn-primary">Ver Usuarios</a>
+          <a href="rutinas.html" class="btn-outline">Explorar Rutinas</a>
+        </div>
       </div>
     </section>
 
-    <section id="sobre-nosotros" aria-labelledby="sobre-title">
-      <h2 id="sobre-title">Sobre Nosotros</h2>
-      <p>
-        Somos una plataforma academica orientada a la gestion inteligente de entrenamiento,
-        asignacion de rutinas y seguimiento mensual de indicadores fisicos.
-      </p>
+    <!-- Sección Sobre Nosotros con corte diagonal inverso -->
+    <section id="sobre-nosotros" class="py-24 bg-zinc-900 clip-diagonal-reverse" aria-labelledby="sobre-title">
+      <div class="container mx-auto px-6 max-w-4xl text-center">
+        <h2 id="sobre-title" class="text-4xl md:text-5xl font-bold mb-6">Donde el <span class="text-orange-accent">Código</span> y el <span class="text-orange-accent">Músculo</span> se Encuentran</h2>
+        <p class="text-lg text-gray-400 leading-relaxed">
+          Somos una plataforma académica orientada a la gestión inteligente de entrenamiento,
+          asignación de rutinas y seguimiento mensual de indicadores físicos. No solo levantamos pesas, levantamos datos.
+        </p>
+      </div>
     </section>
 
-    <section id="servicios" aria-labelledby="servicios-title">
-      <h2 id="servicios-title">Nuestros Servicios</h2>
-      <article>
-        <h3>Planificacion de Rutinas</h3>
-        <p>Programas por nivel y objetivos definidos.</p>
-      </article>
-      <article>
-        <h3>Seguimiento de Progreso</h3>
-        <p>Registro historico de peso, grasa y masa muscular.</p>
-      </article>
-      <article>
-        <h3>Entrenadores Especializados</h3>
-        <p>Profesionales con experiencia por disciplina.</p>
-      </article>
+    <!-- Sección Servicios -->
+    <section id="servicios" class="py-24 bg-black" aria-labelledby="servicios-title">
+      <div class="container mx-auto px-6">
+        <h2 id="servicios-title" class="text-4xl md:text-5xl font-bold text-center mb-16">Nuestros <span class="text-orange-accent">Servicios</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <article class="service-card">
+            <div class="bg-zinc-900 p-8 rounded-lg border-b-4 border-orange-accent">
+              <h3 class="text-2xl font-bold mb-3">Planificación de Rutinas</h3>
+              <p class="text-gray-400">Programas por nivel y objetivos definidos, diseñados por algoritmos y refinados por expertos.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="bg-zinc-900 p-8 rounded-lg border-b-4 border-orange-accent">
+              <h3 class="text-2xl font-bold mb-3">Seguimiento de Progreso</h3>
+              <p class="text-gray-400">Registro histórico de peso, grasa y masa muscular. Visualiza tu evolución en gráficos claros.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="bg-zinc-900 p-8 rounded-lg border-b-4 border-orange-accent">
+              <h3 class="text-2xl font-bold mb-3">Entrenadores Especializados</h3>
+              <p class="text-gray-400">Profesionales con experiencia por disciplina, listos para guiarte en cada repetición.</p>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="entrenadores-destacados" aria-labelledby="destacados-title">
-      <h2 id="destacados-title">Entrenadores Destacados</h2>
-      <p>Listado cargado desde la API.</p>
-      <div id="featured-trainers-list" aria-live="polite"></div>
+    <!-- Sección Entrenadores Destacados (dinámica) -->
+    <section id="entrenadores-destacados" class="py-24 bg-zinc-900 clip-diagonal" aria-labelledby="destacados-title">
+      <div class="container mx-auto px-6">
+        <h2 id="destacados-title" class="text-4xl md:text-5xl font-bold text-center mb-4">Entrenadores <span class="text-orange-accent">Destacados</span></h2>
+        <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto">Conoce al equipo de élite que hará que alcances tu máximo potencial.</p>
+        <div id="featured-trainers-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" aria-live="polite">
+          <!-- Aquí se inyectarán las tarjetas de entrenadores desde JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Pequeña sección de Rutinas (puede ser estática o dinámica) -->
+    <section id="rutinas-destacadas" class="py-24 bg-black">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Rutinas <span class="text-orange-accent">Explosivas</span></h2>
+            <p class="text-lg text-gray-400 mb-10">Diseñadas para impacto. De principiante a avanzado.</p>
+            <a href="rutinas.html" class="btn-primary">Ver todas las rutinas</a>
+        </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; <span id="current-year"></span> Gimnasio Inteligente</p>
+  <!-- Footer oscuro elegante -->
+  <footer class="bg-black/90 border-t border-zinc-800 py-12">
+    <div class="container mx-auto px-6 text-center text-gray-500">
+      <p class="mb-2">&copy; <span id="current-year"></span> Gimnasio Inteligente. Todos los derechos reservados.</p>
+      <p class="text-sm">Hecho con 💪 y datos en tiempo real.</p>
+    </div>
   </footer>
 
+  <!-- Scripts modulares -->
   <script type="module" src="./js/main.js"></script>
 </body>
 </html>

@@ -4,41 +4,86 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gimnasio Inteligente | Rutinas</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom CSS for advanced animations -->
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
-<body>
-  <header>
-    <nav aria-label="Navegacion principal">
-      <a href="index.html">Inicio</a>
-      <a href="usuarios.html">Usuarios</a>
-      <a href="entrenadores.html">Entrenadores</a>
-      <a href="rutinas.html">Rutinas</a>
-      <a href="ejercicios.html">Ejercicios</a>
-      <a href="progreso.html">Progreso</a>
+<body class="bg-dark-bg text-white font-sans antialiased">
+
+  <!-- Navbar fija con efecto de cambio en scroll -->
+  <header id="main-header" class="fixed w-full z-50 transition-all duration-300 bg-transparent">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Navegacion principal">
+      <a href="index.html" class="text-2xl font-bold tracking-tighter text-white"><span class="text-orange-accent">//</span> GYM INT</a>
+      <div class="space-x-8 text-sm font-medium uppercase tracking-wider">
+        <a href="index.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Inicio</a>
+        <a href="usuarios.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Usuarios</a>
+        <a href="entrenadores.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Entrenadores</a>
+        <a href="rutinas.html" class="nav-link text-orange-accent font-bold transition">Rutinas</a>
+        <a href="ejercicios.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Ejercicios</a>
+        <a href="progreso.html" class="nav-link text-gray-300 hover:text-orange-accent transition">Progreso</a>
+      </div>
     </nav>
   </header>
 
-  <main>
-    <section aria-labelledby="rutinas-title">
-      <h1 id="rutinas-title">Rutinas</h1>
-      <p>Tarjetas dinamicas consumiendo <code>GET /api/rutinas</code>.</p>
-      <div id="rutinas-feedback" aria-live="polite"></div>
-      <div id="rutinas-cards"></div>
+  <main class="pt-24">
+    <!-- Hero pequeño de página -->
+    <section class="relative py-16 bg-zinc-900 clip-diagonal mb-12">
+      <div class="container mx-auto px-6 text-center">
+        <h1 id="rutinas-title" class="text-5xl md:text-6xl font-black uppercase tracking-tighter fade-in">
+          <span class="text-orange-accent">//</span> RUTINAS
+        </h1>
+        <p class="text-xl text-gray-300 mt-4 fade-in-delay max-w-2xl mx-auto">
+          Programas de entrenamiento estructurados para cada objetivo.
+        </p>
+      </div>
     </section>
 
-    <section aria-labelledby="rutina-ejercicios-title">
-      <h2 id="rutina-ejercicios-title">Ejercicios por Rutina</h2>
-      <p>Consulta dinamica consumiendo <code>GET /api/rutinas/:id/ejercicios</code>.</p>
-      <label for="rutina-select">Selecciona una rutina</label>
-      <select id="rutina-select">
-        <option value="">-- Elige una rutina --</option>
-      </select>
-      <div id="rutina-ejercicios-feedback" aria-live="polite"></div>
-      <div id="rutina-ejercicios-cards"></div>
+    <!-- Sección de tarjetas de rutinas -->
+    <section aria-labelledby="rutinas-title" class="py-12 bg-black">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-orange-accent">Rutinas disponibles</h2>
+        <div id="rutinas-feedback" class="text-center mb-8 text-gray-400" aria-live="polite"></div>
+        <div id="rutinas-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Las tarjetas se inyectarán aquí desde JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de ejercicios por rutina -->
+    <section aria-labelledby="rutina-ejercicios-title" class="py-16 bg-zinc-900 clip-diagonal-reverse mt-12">
+      <div class="container mx-auto px-6">
+        <h2 id="rutina-ejercicios-title" class="text-4xl font-bold text-center mb-12">
+          <span class="text-orange-accent">//</span> EJERCICIOS POR RUTINA
+        </h2>
+        
+        <!-- Selector de rutina -->
+        <div class="max-w-xl mx-auto mb-10">
+          <label for="rutina-select" class="block text-lg font-medium text-gray-300 mb-3 text-center">
+            Selecciona una rutina para ver sus ejercicios:
+          </label>
+          <select id="rutina-select" class="w-full px-4 py-3 bg-zinc-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-orange-accent focus:ring-1 focus:ring-orange-accent transition">
+            <option value="" class="text-gray-400">-- Elige una rutina --</option>
+          </select>
+        </div>
+
+        <!-- Feedback -->
+        <div id="rutina-ejercicios-feedback" class="text-center mb-8 text-gray-400" aria-live="polite"></div>
+
+        <!-- Tarjetas de ejercicios de la rutina -->
+        <div id="rutina-ejercicios-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Las tarjetas se inyectarán aquí desde JavaScript -->
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; <span id="current-year"></span> Gimnasio Inteligente</p>
+  <!-- Footer oscuro elegante -->
+  <footer class="bg-black/90 border-t border-zinc-800 py-12 mt-12">
+    <div class="container mx-auto px-6 text-center text-gray-500">
+      <p class="mb-2">&copy; <span id="current-year"></span> Gimnasio Inteligente. Todos los derechos reservados.</p>
+      <p class="text-sm">Hecho con 💪 y datos en tiempo real.</p>
+    </div>
   </footer>
 
   <script type="module" src="./js/pages/rutinas.js"></script>
