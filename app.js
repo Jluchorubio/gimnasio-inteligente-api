@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 
 const usuarioRoutes = require('./routes/usuario.routes');
 const entrenadorRoutes = require('./routes/entrenador.routes');
@@ -12,10 +13,27 @@ const progresoRoutes = require('./routes/progreso.routes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// CORS basico para permitir consumo desde frontend (localhost y despliegues externos)
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
 app.use(express.json());
 
+// Servir frontend estatico
+app.use(express.static(path.join(__dirname, 'frontend')));
+
+// Ruta principal: abrir index.html
 app.get('/', (req, res) => {
-  res.json({ message: 'API Gimnasio Inteligente activa' });
+  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
 app.use('/api/usuarios', usuarioRoutes);

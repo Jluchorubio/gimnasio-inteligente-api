@@ -1,11 +1,8 @@
 CREATE DATABASE gimnasio_inteligente;
 
--- Luego conéctate a la base:
--- \c gimnasio_inteligente
 
--- =========================================
--- 1️⃣ TABLA USUARIO
--- =========================================
+
+
 CREATE TABLE usuario (
     id_usuario SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -16,9 +13,7 @@ CREATE TABLE usuario (
     fecha_registro DATE
 );
 
--- =========================================
--- 2️⃣ TABLA ENTRENADOR
--- =========================================
+
 CREATE TABLE entrenador (
     id_entrenador SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -26,9 +21,7 @@ CREATE TABLE entrenador (
     email VARCHAR(100) UNIQUE
 );
 
--- =========================================
--- 3️⃣ TABLA RUTINA
--- =========================================
+
 CREATE TABLE rutina (
     id_rutina SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -40,9 +33,7 @@ CREATE TABLE rutina (
         ON DELETE SET NULL
 );
 
--- =========================================
--- 4️⃣ TABLA EJERCICIO
--- =========================================
+
 CREATE TABLE ejercicio (
     id_ejercicio SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -52,9 +43,7 @@ CREATE TABLE ejercicio (
     imagen_url VARCHAR(255)
 );
 
--- =========================================
--- 5️⃣ TABLA RUTINA_EJERCICIO (N:M)
--- =========================================
+
 CREATE TABLE rutina_ejercicio (
     id_rutina INT,
     id_ejercicio INT,
@@ -70,9 +59,7 @@ CREATE TABLE rutina_ejercicio (
         ON DELETE CASCADE
 );
 
--- =========================================
--- 6️⃣ TABLA USUARIO_RUTINA (N:M)
--- =========================================
+
 CREATE TABLE usuario_rutina (
     id_usuario INT,
     id_rutina INT,
@@ -87,9 +74,7 @@ CREATE TABLE usuario_rutina (
         ON DELETE CASCADE
 );
 
--- =========================================
--- 7️⃣ TABLA PROGRESO (1:N)
--- =========================================
+
 CREATE TABLE progreso (
     id_progreso SERIAL PRIMARY KEY,
     id_usuario INT,
@@ -102,9 +87,7 @@ CREATE TABLE progreso (
         ON DELETE CASCADE
 );
 
--- =========================================
--- INSERTS (SIN MODIFICACIÓN)
--- =========================================
+
 
 INSERT INTO entrenador (nombre, especialidad, email) VALUES
 ('Carlos Méndez', 'Hipertrofia', 'carlos1@gym.com'),
