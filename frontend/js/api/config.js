@@ -1,5 +1,5 @@
-﻿// URL base configurable. Puedes sobrescribirla con window.GIMNASIO_API_BASE_URL.
-export const API_BASE_URL = window.GIMNASIO_API_BASE_URL || 'https://gimnasio-inteligente-api-1.onrender.com';
+﻿// Base URL configurable. Si no se define manualmente, usa el mismo dominio donde corre el frontend.
+export const API_BASE_URL = window.GIMNASIO_API_BASE_URL || window.location.origin;
 
 export async function apiRequest(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
