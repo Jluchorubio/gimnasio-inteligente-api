@@ -1,28 +1,70 @@
 /* ===== VARIABLES ===== */
 :root {
     --orange-accent: #f97316;
-    --orange-glow: rgba(249, 115, 22, 0.5);
+    --orange-accent-2: #fb923c;
+    --orange-glow: rgba(249, 115, 22, 0.45);
     --dark-bg: #0a0a0a;
-    --transition-speed: 300ms;
+    --dark-panel: #121212;
+    --dark-panel-2: #1a1a1a;
+    --text-soft: #9ca3af;
+    --text-strong: #e5e7eb;
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --transition-speed: 320ms;
+}
+
+/* ===== BASE ===== */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(circle at 10% 5%, rgba(249, 115, 22, 0.12) 0%, transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(249, 115, 22, 0.07) 0%, transparent 28%),
+        linear-gradient(180deg, #070707 0%, #0a0a0a 45%, #090909 100%);
+    color: var(--text-strong);
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: radial-gradient(circle at center, black 35%, transparent 90%);
+    opacity: 0.3;
+}
+
+.text-orange-accent {
+    color: var(--orange-accent);
+}
+
+.bg-dark-bg {
+    background-color: var(--dark-bg);
 }
 
 /* ===== ANIMACIONES GLOBALES ===== */
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 0.8s ease forwards;
+    animation: fadeInUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .fade-in-delay {
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 0.8s ease 0.3s forwards;
+    animation: fadeInUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.22s forwards;
 }
 
 .fade-in-delay-2 {
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 0.8s ease 0.6s forwards;
+    animation: fadeInUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.45s forwards;
 }
 
 @keyframes fadeInUp {
@@ -32,129 +74,28 @@
     }
 }
 
-/* ===== NAVBAR SCROLL EFFECT ===== */
+@keyframes pulseGlow {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(249, 115, 22, 0.08);
+    }
+}
+
+/* ===== NAVBAR ===== */
+#main-header {
+    border-bottom: 1px solid transparent;
+}
+
 #main-header.scrolled {
-    background-color: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    background-color: rgba(10, 10, 10, 0.78);
+    backdrop-filter: blur(14px);
+    border-bottom-color: var(--border-soft);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
 
-/* ===== BOTONES PERSONALIZADOS ===== */
-.btn-primary {
-    display: inline-block;
-    background-color: var(--orange-accent);
-    color: black;
-    font-weight: bold;
-    padding: 0.75rem 2rem;
-    border-radius: 9999px; /* full rounded */
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all var(--transition-speed) ease;
-    border: 2px solid transparent;
-}
-
-.btn-primary:hover {
-    background-color: transparent;
-    color: var(--orange-accent);
-    border-color: var(--orange-accent);
-    box-shadow: 0 0 20px var(--orange-glow);
-    transform: translateY(-2px) scale(1.03);
-}
-
-.btn-outline {
-    display: inline-block;
-    background-color: transparent;
-    color: white;
-    font-weight: bold;
-    padding: 0.75rem 2rem;
-    border-radius: 9999px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all var(--transition-speed) ease;
-    border: 2px solid white;
-}
-
-.btn-outline:hover {
-    background-color: white;
-    color: black;
-    border-color: white;
-    transform: translateY(-2px) scale(1.03);
-}
-
-/* ===== CORTES DIAGONALES ===== */
-.clip-diagonal {
-    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-}
-
-.clip-diagonal-reverse {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
-}
-
-/* ===== TARJETAS CON EFECTO HOVER ===== */
-.service-card {
-    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-}
-
-.service-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 20px 30px -10px rgba(249, 115, 22, 0.3);
-}
-
-/* Estilo para tarjetas de entrenador (se usarán en la sección dinámica) */
-.trainer-card {
-    background-color: #1a1a1a;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    transition: all var(--transition-speed) ease;
-    border-bottom: 3px solid transparent;
-}
-
-.trainer-card:hover {
-    transform: scale(1.05) translateY(-10px);
-    box-shadow: 0 20px 30px -10px var(--orange-glow);
-    border-bottom-color: var(--orange-accent);
-}
-
-.trainer-card img {
-    transition: transform var(--transition-speed) ease;
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.trainer-card:hover img {
-    transform: scale(1.1);
-}
-
-.trainer-card .content {
-    padding: 1.5rem;
-}
-
-.trainer-card h3 {
-    color: var(--orange-accent);
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-}
-
-.trainer-card p {
-    color: #9ca3af;
-    font-size: 0.9rem;
-}
-
-/* ===== ANIMACIONES AL HACER SCROLL (REVEAL) ===== */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ===== INTERACCIONES ADICIONALES ===== */
 .nav-link {
     position: relative;
 }
@@ -166,7 +107,7 @@
     bottom: -6px;
     width: 100%;
     height: 2px;
-    background: var(--orange-accent);
+    background: linear-gradient(90deg, var(--orange-accent), var(--orange-accent-2));
     transform: scaleX(0);
     transform-origin: left;
     transition: transform var(--transition-speed) ease;
@@ -177,13 +118,163 @@
     transform: scaleX(1);
 }
 
-.card-lift {
+/* ===== HERO ===== */
+#hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 65% 40%, rgba(249, 115, 22, 0.16), transparent 45%);
+    pointer-events: none;
+}
+
+/* ===== BOTONES ===== */
+.btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--orange-accent), var(--orange-accent-2));
+    color: #111;
+    font-weight: 800;
+    padding: 0.8rem 2rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, filter var(--transition-speed) ease;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 26px rgba(249, 115, 22, 0.28);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.05);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 34px rgba(249, 115, 22, 0.4);
+}
+
+.btn-outline {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.03);
+    color: #fff;
+    font-weight: 700;
+    padding: 0.8rem 2rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: transform var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.btn-outline:hover {
+    border-color: var(--orange-accent);
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12);
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* ===== CORTES DIAGONALES ===== */
+.clip-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 91%, 0 100%);
+}
+
+.clip-diagonal-reverse {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 91%);
+}
+
+/* ===== CARDS ===== */
+.service-card {
+    transition: transform var(--transition-speed) ease, filter var(--transition-speed) ease;
+}
+
+.service-card > div {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 30%),
+        var(--dark-panel-2);
+    border: 1px solid var(--border-soft);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    filter: brightness(1.05);
+}
+
+.trainer-card {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 35%),
+        var(--dark-panel-2);
+    border-radius: 0.9rem;
+    overflow: hidden;
+    border: 1px solid var(--border-soft);
     transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+.trainer-card:hover {
+    transform: translateY(-9px);
+    border-color: rgba(249, 115, 22, 0.45);
+    box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(249, 115, 22, 0.2) inset;
+}
+
+.trainer-card .content {
+    padding: 1.2rem 1.3rem;
+}
+
+.trainer-card h3 {
+    color: var(--orange-accent);
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+}
+
+.trainer-card p {
+    color: var(--text-soft);
+    font-size: 0.92rem;
+}
+
+.card-lift {
+    position: relative;
+    border: 1px solid var(--border-soft);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+.card-lift::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(145deg, rgba(249, 115, 22, 0.15), transparent 35%);
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease;
+    pointer-events: none;
 }
 
 .card-lift:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 28px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(249, 115, 22, 0.25) inset;
+    border-color: rgba(249, 115, 22, 0.4);
+    box-shadow: 0 18px 30px -14px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(249, 115, 22, 0.2) inset;
+}
+
+.card-lift:hover::before {
+    opacity: 1;
+}
+
+/* ===== TABLAS ===== */
+table {
+    border-collapse: collapse;
+    border: 1px solid var(--border-soft);
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+thead tr {
+    background: linear-gradient(90deg, rgba(249, 115, 22, 0.2), rgba(249, 115, 22, 0.05));
+}
+
+th {
+    color: #f4f4f5;
+    font-weight: 700;
+}
+
+tbody tr {
+    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+tbody tr:hover {
+    background-color: rgba(249, 115, 22, 0.07);
 }
 
 tbody tr td {
@@ -191,14 +282,115 @@ tbody tr td {
 }
 
 tbody tr:hover td {
-    color: #f3f4f6;
+    color: #f9fafb;
 }
 
+/* ===== FORM ELEMENTS ===== */
+select {
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease, background-color var(--transition-speed) ease;
+}
+
+select:focus {
+    border-color: var(--orange-accent) !important;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15);
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* ===== FEEDBACK ===== */
+#usuarios-feedback,
+#entrenadores-feedback,
+#rutinas-feedback,
+#rutina-ejercicios-feedback,
+#ejercicios-feedback,
+#progreso-feedback,
+#usuario-rutinas-feedback {
+    min-height: 1.6rem;
+    font-weight: 500;
+}
+
+/* ===== REVEAL ===== */
+.reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.75s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    position: relative;
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.35), transparent);
+}
+
+/* ===== SCROLLBAR ===== */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(249, 115, 22, 0.55) rgba(255, 255, 255, 0.06);
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+*::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(249, 115, 22, 0.75), rgba(249, 115, 22, 0.45));
+    border-radius: 9999px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .clip-diagonal,
+    .clip-diagonal-reverse {
+        clip-path: none;
+    }
+}
+
+@media (max-width: 768px) {
+    #hero h1 {
+        line-height: 1.02;
+    }
+
+    .service-card:hover,
+    .trainer-card:hover,
+    .card-lift:hover {
+        transform: none;
+    }
+}
+
+/* ===== ACCESSIBILITY ===== */
 @media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
     .fade-in,
     .fade-in-delay,
     .fade-in-delay-2,
-    .reveal {
+    .reveal,
+    .service-card,
+    .trainer-card,
+    .card-lift,
+    .btn-primary,
+    .btn-outline,
+    .nav-link::after {
         animation: none !important;
         transition: none !important;
         opacity: 1 !important;
