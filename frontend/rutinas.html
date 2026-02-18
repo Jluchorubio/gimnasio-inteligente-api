@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gimnasio Inteligente | Rutinas</title>
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegacion principal">
+      <a href="index.html">Inicio</a>
+      <a href="usuarios.html">Usuarios</a>
+      <a href="entrenadores.html">Entrenadores</a>
+      <a href="rutinas.html">Rutinas</a>
+      <a href="ejercicios.html">Ejercicios</a>
+      <a href="progreso.html">Progreso</a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="rutinas-title">
+      <h1 id="rutinas-title">Rutinas</h1>
+      <p>Tarjetas dinamicas consumiendo <code>GET /api/rutinas</code>.</p>
+      <div id="rutinas-feedback" aria-live="polite"></div>
+      <div id="rutinas-cards"></div>
+    </section>
+
+    <section aria-labelledby="rutina-ejercicios-title">
+      <h2 id="rutina-ejercicios-title">Ejercicios por Rutina</h2>
+      <p>Consulta dinamica consumiendo <code>GET /api/rutinas/:id/ejercicios</code>.</p>
+      <label for="rutina-select">Selecciona una rutina</label>
+      <select id="rutina-select">
+        <option value="">-- Elige una rutina --</option>
+      </select>
+      <div id="rutina-ejercicios-feedback" aria-live="polite"></div>
+      <div id="rutina-ejercicios-cards"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Gimnasio Inteligente</p>
+  </footer>
+
+  <script type="module" src="./js/pages/rutinas.js"></script>
+</body>
+</html>

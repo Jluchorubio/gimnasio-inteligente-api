@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gimnasio Inteligente | Landing</title>
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegacion principal">
+      <a href="index.html">Inicio</a>
+      <a href="usuarios.html">Usuarios</a>
+      <a href="entrenadores.html">Entrenadores</a>
+      <a href="rutinas.html">Rutinas</a>
+      <a href="ejercicios.html">Ejercicios</a>
+      <a href="progreso.html">Progreso</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">Gimnasio Inteligente</h1>
+      <p>Entrenamiento personalizado basado en datos reales de progreso.</p>
+      <div>
+        <a href="usuarios.html">Ver Usuarios</a>
+        <a href="rutinas.html">Explorar Rutinas</a>
+      </div>
+    </section>
+
+    <section id="sobre-nosotros" aria-labelledby="sobre-title">
+      <h2 id="sobre-title">Sobre Nosotros</h2>
+      <p>
+        Somos una plataforma academica orientada a la gestion inteligente de entrenamiento,
+        asignacion de rutinas y seguimiento mensual de indicadores fisicos.
+      </p>
+    </section>
+
+    <section id="servicios" aria-labelledby="servicios-title">
+      <h2 id="servicios-title">Nuestros Servicios</h2>
+      <article>
+        <h3>Planificacion de Rutinas</h3>
+        <p>Programas por nivel y objetivos definidos.</p>
+      </article>
+      <article>
+        <h3>Seguimiento de Progreso</h3>
+        <p>Registro historico de peso, grasa y masa muscular.</p>
+      </article>
+      <article>
+        <h3>Entrenadores Especializados</h3>
+        <p>Profesionales con experiencia por disciplina.</p>
+      </article>
+    </section>
+
+    <section id="entrenadores-destacados" aria-labelledby="destacados-title">
+      <h2 id="destacados-title">Entrenadores Destacados</h2>
+      <p>Listado cargado desde la API.</p>
+      <div id="featured-trainers-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Gimnasio Inteligente</p>
+  </footer>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

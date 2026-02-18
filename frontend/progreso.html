@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gimnasio Inteligente | Progreso</title>
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegacion principal">
+      <a href="index.html">Inicio</a>
+      <a href="usuarios.html">Usuarios</a>
+      <a href="entrenadores.html">Entrenadores</a>
+      <a href="rutinas.html">Rutinas</a>
+      <a href="ejercicios.html">Ejercicios</a>
+      <a href="progreso.html">Progreso</a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="progreso-title">
+      <h1 id="progreso-title">Progreso Mensual por Usuario</h1>
+      <p>Consulta dinamica consumiendo <code>GET /api/usuarios/:id/progreso-mensual</code>.</p>
+      <label for="progreso-usuario-select">Selecciona un usuario</label>
+      <select id="progreso-usuario-select">
+        <option value="">-- Elige un usuario --</option>
+      </select>
+      <div id="progreso-feedback" aria-live="polite"></div>
+      <table>
+        <caption>Historial de progreso mensual</caption>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Peso Actual</th>
+            <th>% Grasa</th>
+            <th>Masa Muscular</th>
+          </tr>
+        </thead>
+        <tbody id="progreso-table-body"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Gimnasio Inteligente</p>
+  </footer>
+
+  <script type="module" src="./js/pages/progreso.js"></script>
+</body>
+</html>
