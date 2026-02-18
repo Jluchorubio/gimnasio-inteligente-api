@@ -1,4 +1,5 @@
-﻿import { getEjercicios } from '../api/ejercicio.api.js';
+import { getEjercicios } from '../api/ejercicio.api.js';
+import { setupUI } from '../ui.js';
 
 function normalizeArray(payload) {
   if (Array.isArray(payload)) return payload;
@@ -6,13 +7,10 @@ function normalizeArray(payload) {
   return [];
 }
 
-function setCurrentYear() {
-  const year = document.getElementById('current-year');
-  if (year) year.textContent = new Date().getFullYear();
-}
-
 function renderEjercicios(ejercicios) {
   const container = document.getElementById('ejercicios-cards');
+  if (!container) return;
+
   container.innerHTML = '';
 
   if (!ejercicios.length) {
@@ -23,12 +21,12 @@ function renderEjercicios(ejercicios) {
   container.innerHTML = ejercicios
     .map(
       (ejercicio) => `
-        <article>
-          <h2>${ejercicio.nombre ?? 'Ejercicio sin nombre'}</h2>
-          <p>Descripcion: ${ejercicio.descripcion ?? 'Sin descripcion'}</p>
-          <p>Grupo muscular: ${ejercicio.grupo_muscular ?? '-'}</p>
-          <p>Tipo: ${ejercicio.tipo ?? '-'}</p>
-          <p>ID: ${ejercicio.id_ejercicio ?? '-'}</p>
+        <article class="bg-zinc-900 p-6 rounded-lg border-l-4 border-orange-accent card-lift reveal">
+          <h2 class="text-xl font-bold mb-3 text-orange-accent">${ejercicio.nombre ?? 'Ejercicio sin nombre'}</h2>
+          <p class="text-gray-300 mb-2">${ejercicio.descripcion ?? 'Sin descripcion'}</p>
+          <p class="text-gray-400 text-sm">Grupo muscular: ${ejercicio.grupo_muscular ?? '-'}</p>
+          <p class="text-gray-400 text-sm">Tipo: ${ejercicio.tipo ?? '-'}</p>
+          <p class="text-gray-500 text-xs mt-3">ID: ${ejercicio.id_ejercicio ?? '-'}</p>
         </article>
       `
     )
@@ -37,18 +35,18 @@ function renderEjercicios(ejercicios) {
 
 async function loadEjercicios() {
   const feedback = document.getElementById('ejercicios-feedback');
+  if (feedback) feedback.textContent = 'Cargando ejercicios...';
 
   try {
-    feedback.textContent = 'Cargando ejercicios...';
     const ejercicios = normalizeArray(await getEjercicios());
     renderEjercicios(ejercicios);
-    feedback.textContent = `Ejercicios cargados: ${ejercicios.length}`;
+    if (feedback) feedback.textContent = `Ejercicios cargados: ${ejercicios.length}`;
   } catch (error) {
-    feedback.textContent = `Error al cargar ejercicios: ${error.message}`;
+    if (feedback) feedback.textContent = `Error al cargar ejercicios: ${error.message}`;
   }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  setCurrentYear();
+  setupUI();
   await loadEjercicios();
 });

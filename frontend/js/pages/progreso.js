@@ -1,5 +1,6 @@
-﻿import { getUsuarios } from '../api/usuario.api.js';
+import { getUsuarios } from '../api/usuario.api.js';
 import { getProgresoMensualByUsuario } from '../api/progreso.api.js';
+import { setupUI } from '../ui.js';
 
 function normalizeArray(payload) {
   if (Array.isArray(payload)) return payload;
@@ -7,14 +8,11 @@ function normalizeArray(payload) {
   return [];
 }
 
-function setCurrentYear() {
-  const year = document.getElementById('current-year');
-  if (year) year.textContent = new Date().getFullYear();
-}
-
 function fillUserSelect(usuarios) {
   const select = document.getElementById('progreso-usuario-select');
+  if (!select) return;
 
+  select.innerHTML = '<option value="" class="text-gray-400">-- Elige un usuario --</option>';
   usuarios.forEach((usuario) => {
     const option = document.createElement('option');
     option.value = usuario.id_usuario;
@@ -25,21 +23,23 @@ function fillUserSelect(usuarios) {
 
 function renderProgresoTable(registros) {
   const tbody = document.getElementById('progreso-table-body');
+  if (!tbody) return;
+
   tbody.innerHTML = '';
 
   if (!registros.length) {
-    tbody.innerHTML = '<tr><td colspan="4">Sin registros de progreso para este usuario.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="4" class="py-4 px-4 text-gray-400">Sin registros de progreso para este usuario.</td></tr>';
     return;
   }
 
   tbody.innerHTML = registros
     .map(
       (registro) => `
-        <tr>
-          <td>${registro.fecha_registro ? new Date(registro.fecha_registro).toLocaleDateString() : '-'}</td>
-          <td>${registro.peso_actual ?? '-'}</td>
-          <td>${registro.porcentaje_grasa ?? '-'}</td>
-          <td>${registro.masa_muscular ?? '-'}</td>
+        <tr class="hover:bg-zinc-800/70 transition-colors">
+          <td class="py-3 px-4">${registro.fecha_registro ? new Date(registro.fecha_registro).toLocaleDateString() : '-'}</td>
+          <td class="py-3 px-4">${registro.peso_actual ?? '-'}</td>
+          <td class="py-3 px-4">${registro.porcentaje_grasa ?? '-'}</td>
+          <td class="py-3 px-4">${registro.masa_muscular ?? '-'}</td>
         </tr>
       `
     )
@@ -48,27 +48,30 @@ function renderProgresoTable(registros) {
 
 async function loadUsuariosIntoSelect() {
   const feedback = document.getElementById('progreso-feedback');
+  if (feedback) feedback.textContent = 'Cargando usuarios...';
 
   try {
-    feedback.textContent = 'Cargando usuarios...';
     const usuarios = normalizeArray(await getUsuarios());
     fillUserSelect(usuarios);
-    feedback.textContent = 'Selecciona un usuario para ver su progreso mensual.';
+    if (feedback) feedback.textContent = 'Selecciona un usuario para ver su progreso mensual.';
   } catch (error) {
-    feedback.textContent = `Error al cargar usuarios: ${error.message}`;
+    if (feedback) feedback.textContent = `Error al cargar usuarios: ${error.message}`;
   }
 }
 
 function setupProgresoListener() {
   const select = document.getElementById('progreso-usuario-select');
   const feedback = document.getElementById('progreso-feedback');
+  const tbody = document.getElementById('progreso-table-body');
+
+  if (!select || !feedback || !tbody) return;
 
   select.addEventListener('change', async (event) => {
     const idUsuario = event.target.value;
 
     if (!idUsuario) {
       feedback.textContent = 'Selecciona un usuario para consultar progreso.';
-      document.getElementById('progreso-table-body').innerHTML = '';
+      tbody.innerHTML = '';
       return;
     }
 
@@ -84,7 +87,7 @@ function setupProgresoListener() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  setCurrentYear();
+  setupUI();
   setupProgresoListener();
   await loadUsuariosIntoSelect();
 });

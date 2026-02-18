@@ -1,19 +1,5 @@
-﻿import { getEntrenadores } from './api/entrenador.api.js';
-
-function setCurrentYear() {
-  const yearElement = document.getElementById('current-year');
-  if (yearElement) yearElement.textContent = new Date().getFullYear();
-}
-
-function markActiveLink() {
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('nav a').forEach((link) => {
-    const href = link.getAttribute('href');
-    if (href === currentPage) {
-      link.setAttribute('aria-current', 'page');
-    }
-  });
-}
+import { getEntrenadores } from './api/entrenador.api.js';
+import { setupUI } from './ui.js';
 
 function normalizeArray(payload) {
   if (Array.isArray(payload)) return payload;
@@ -29,7 +15,7 @@ async function renderFeaturedTrainers() {
 
   try {
     const trainers = normalizeArray(await getEntrenadores());
-    const destacados = trainers.slice(0, 3);
+    const destacados = trainers.slice(0, 4);
 
     if (!destacados.length) {
       container.textContent = 'No hay entrenadores destacados para mostrar.';
@@ -39,10 +25,12 @@ async function renderFeaturedTrainers() {
     container.innerHTML = destacados
       .map(
         (trainer) => `
-          <article>
-            <h3>${trainer.nombre ?? 'Sin nombre'}</h3>
-            <p>Especialidad: ${trainer.especialidad ?? 'No especificada'}</p>
-            <p>Email: ${trainer.email ?? 'No disponible'}</p>
+          <article class="trainer-card reveal">
+            <div class="content">
+              <h3>${trainer.nombre ?? 'Sin nombre'}</h3>
+              <p>Especialidad: ${trainer.especialidad ?? 'No especificada'}</p>
+              <p>Email: ${trainer.email ?? 'No disponible'}</p>
+            </div>
           </article>
         `
       )
@@ -53,7 +41,6 @@ async function renderFeaturedTrainers() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  setCurrentYear();
-  markActiveLink();
+  setupUI();
   renderFeaturedTrainers();
 });

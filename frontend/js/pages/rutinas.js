@@ -1,4 +1,5 @@
-﻿import { getRutinas, getEjerciciosByRutina } from '../api/rutina.api.js';
+import { getRutinas, getEjerciciosByRutina } from '../api/rutina.api.js';
+import { setupUI } from '../ui.js';
 
 function normalizeArray(payload) {
   if (Array.isArray(payload)) return payload;
@@ -6,13 +7,10 @@ function normalizeArray(payload) {
   return [];
 }
 
-function setCurrentYear() {
-  const year = document.getElementById('current-year');
-  if (year) year.textContent = new Date().getFullYear();
-}
-
 function renderRutinas(rutinas) {
   const container = document.getElementById('rutinas-cards');
+  if (!container) return;
+
   container.innerHTML = '';
 
   if (!rutinas.length) {
@@ -23,12 +21,12 @@ function renderRutinas(rutinas) {
   container.innerHTML = rutinas
     .map(
       (rutina) => `
-        <article>
-          <h2>${rutina.nombre ?? 'Rutina sin nombre'}</h2>
-          <p>Descripcion: ${rutina.descripcion ?? 'Sin descripcion'}</p>
-          <p>Nivel: ${rutina.nivel ?? '-'}</p>
-          <p>Entrenador ID: ${rutina.id_entrenador ?? '-'}</p>
-          <p>Rutina ID: ${rutina.id_rutina ?? '-'}</p>
+        <article class="bg-zinc-900 p-6 rounded-lg border-l-4 border-orange-accent card-lift">
+          <h2 class="text-2xl font-bold mb-3 text-orange-accent">${rutina.nombre ?? 'Rutina sin nombre'}</h2>
+          <p class="text-gray-300 mb-2">Descripcion: ${rutina.descripcion ?? 'Sin descripcion'}</p>
+          <p class="text-gray-400 text-sm">Nivel: ${rutina.nivel ?? '-'}</p>
+          <p class="text-gray-500 text-xs mt-3">Entrenador ID: ${rutina.id_entrenador ?? '-'}</p>
+          <p class="text-gray-500 text-xs">Rutina ID: ${rutina.id_rutina ?? '-'}</p>
         </article>
       `
     )
@@ -37,7 +35,9 @@ function renderRutinas(rutinas) {
 
 function fillRutinaSelect(rutinas) {
   const select = document.getElementById('rutina-select');
+  if (!select) return;
 
+  select.innerHTML = '<option value="" class="text-gray-400">-- Elige una rutina --</option>';
   rutinas.forEach((rutina) => {
     const option = document.createElement('option');
     option.value = rutina.id_rutina;
@@ -48,6 +48,8 @@ function fillRutinaSelect(rutinas) {
 
 function renderEjerciciosByRutina(ejercicios) {
   const container = document.getElementById('rutina-ejercicios-cards');
+  if (!container) return;
+
   container.innerHTML = '';
 
   if (!ejercicios.length) {
@@ -58,12 +60,12 @@ function renderEjerciciosByRutina(ejercicios) {
   container.innerHTML = ejercicios
     .map(
       (ejercicio) => `
-        <article>
-          <h3>${ejercicio.nombre ?? 'Ejercicio sin nombre'}</h3>
-          <p>ID Ejercicio: ${ejercicio.id_ejercicio ?? '-'}</p>
-          <p>Series: ${ejercicio.series ?? '-'}</p>
-          <p>Repeticiones: ${ejercicio.repeticiones ?? '-'}</p>
-          <p>Descanso (seg): ${ejercicio.descanso_seg ?? '-'}</p>
+        <article class="bg-black/40 border border-zinc-700 p-5 rounded-lg card-lift">
+          <h3 class="text-lg font-semibold text-orange-accent mb-2">${ejercicio.nombre ?? 'Ejercicio sin nombre'}</h3>
+          <p class="text-gray-400 text-sm">ID Ejercicio: ${ejercicio.id_ejercicio ?? '-'}</p>
+          <p class="text-gray-300 text-sm">Series: ${ejercicio.series ?? '-'}</p>
+          <p class="text-gray-300 text-sm">Repeticiones: ${ejercicio.repeticiones ?? '-'}</p>
+          <p class="text-gray-300 text-sm">Descanso (seg): ${ejercicio.descanso_seg ?? '-'}</p>
         </article>
       `
     )
@@ -72,28 +74,31 @@ function renderEjerciciosByRutina(ejercicios) {
 
 async function loadRutinas() {
   const feedback = document.getElementById('rutinas-feedback');
+  if (feedback) feedback.textContent = 'Cargando rutinas...';
 
   try {
-    feedback.textContent = 'Cargando rutinas...';
     const rutinas = normalizeArray(await getRutinas());
     renderRutinas(rutinas);
     fillRutinaSelect(rutinas);
-    feedback.textContent = `Rutinas cargadas: ${rutinas.length}`;
+    if (feedback) feedback.textContent = `Rutinas cargadas: ${rutinas.length}`;
   } catch (error) {
-    feedback.textContent = `Error al cargar rutinas: ${error.message}`;
+    if (feedback) feedback.textContent = `Error al cargar rutinas: ${error.message}`;
   }
 }
 
 function setupEjerciciosByRutinaListener() {
   const select = document.getElementById('rutina-select');
   const feedback = document.getElementById('rutina-ejercicios-feedback');
+  const cards = document.getElementById('rutina-ejercicios-cards');
+
+  if (!select || !feedback || !cards) return;
 
   select.addEventListener('change', async (event) => {
     const idRutina = event.target.value;
 
     if (!idRutina) {
       feedback.textContent = 'Selecciona una rutina para ver ejercicios.';
-      document.getElementById('rutina-ejercicios-cards').innerHTML = '';
+      cards.innerHTML = '';
       return;
     }
 
@@ -109,7 +114,7 @@ function setupEjerciciosByRutinaListener() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  setCurrentYear();
+  setupUI();
   setupEjerciciosByRutinaListener();
   await loadRutinas();
 });

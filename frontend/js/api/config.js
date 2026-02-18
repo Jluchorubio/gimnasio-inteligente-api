@@ -1,12 +1,11 @@
 ﻿// Base URL configurable.
 // 1) Si existe window.GIMNASIO_API_BASE_URL, se usa ese valor.
-// 2) Si se abre desde http/https, usa window.location.origin.
-// 3) Si se abre como file://, usa Render como respaldo.
-const isHttpOrigin = window.location.protocol === 'http:' || window.location.protocol === 'https:';
+// 2) Si el frontend corre en el dominio del proyecto en Render, usa window.location.origin.
+// 3) En local u otros hosts, usa Render como respaldo.
+const RENDER_API_URL = 'https://gimnasio-inteligente-api.onrender.com';
+const isProjectRenderHost = window.location.hostname.includes('gimnasio-inteligente-api');
 
-export const API_BASE_URL =
-  window.GIMNASIO_API_BASE_URL ||
-  (isHttpOrigin ? window.location.origin : 'https://gimnasio-inteligente-api.onrender.com');
+export const API_BASE_URL = window.GIMNASIO_API_BASE_URL || (isProjectRenderHost ? window.location.origin : RENDER_API_URL);
 
 export async function apiRequest(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
