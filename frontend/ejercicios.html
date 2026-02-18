@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gimnasio Inteligente | Ejercicios</title>
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegacion principal">
+      <a href="index.html">Inicio</a>
+      <a href="usuarios.html">Usuarios</a>
+      <a href="entrenadores.html">Entrenadores</a>
+      <a href="rutinas.html">Rutinas</a>
+      <a href="ejercicios.html">Ejercicios</a>
+      <a href="progreso.html">Progreso</a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="ejercicios-title">
+      <h1 id="ejercicios-title">Ejercicios</h1>
+      <p>Tarjetas dinamicas consumiendo <code>GET /api/ejercicios</code>.</p>
+      <div id="ejercicios-feedback" aria-live="polite"></div>
+      <div id="ejercicios-cards"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Gimnasio Inteligente</p>
+  </footer>
+
+  <script type="module" src="./js/pages/ejercicios.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gimnasio Inteligente | Usuarios</title>
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegacion principal">
+      <a href="index.html">Inicio</a>
+      <a href="usuarios.html">Usuarios</a>
+      <a href="entrenadores.html">Entrenadores</a>
+      <a href="rutinas.html">Rutinas</a>
+      <a href="ejercicios.html">Ejercicios</a>
+      <a href="progreso.html">Progreso</a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="usuarios-title">
+      <h1 id="usuarios-title">Usuarios</h1>
+      <p>Tabla dinamica consumiendo <code>GET /api/usuarios</code>.</p>
+      <div id="usuarios-feedback" aria-live="polite"></div>
+      <table>
+        <caption>Listado de usuarios registrados</caption>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Edad</th>
+            <th>Peso</th>
+            <th>Estatura</th>
+            <th>Registro</th>
+          </tr>
+        </thead>
+        <tbody id="usuarios-table-body"></tbody>
+      </table>
+    </section>
+
+    <section aria-labelledby="usuario-rutinas-title">
+      <h2 id="usuario-rutinas-title">Rutinas por Usuario</h2>
+      <p>Consulta dinamica consumiendo <code>GET /api/usuarios/:id/rutinas</code>.</p>
+      <label for="usuario-rutinas-select">Selecciona un usuario</label>
+      <select id="usuario-rutinas-select">
+        <option value="">-- Elige un usuario --</option>
+      </select>
+      <div id="usuario-rutinas-feedback" aria-live="polite"></div>
+      <div id="usuario-rutinas-cards"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Gimnasio Inteligente</p>
+  </footer>
+
+  <script type="module" src="./js/pages/usuarios.js"></script>
+</body>
+</html>
